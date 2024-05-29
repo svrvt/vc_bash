@@ -1,0 +1,13 @@
+*
+!/.bash_logout
+!/.bashrc
+!/.config/bash/my_aliases
+!/.config/bash/my_bash_func
+!/.config/bash/my_bash_prompt
+!/.config/bash/my_completions
+!/.config/bash/my_exports_and_paths
+!/.config/bash/my_functions
+!/.config/bash/my_paths
+!/.config/bash/.zshrc
+!/.gitignore.d/vc_bash
+!/.profile

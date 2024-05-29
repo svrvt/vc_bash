@@ -1,0 +1,558 @@
+#!/bin/bash
+alias zc='$EDITOR ~/.zshrc'
+alias tc='$EDITOR ~/.config/alacritty/alacritty.yml'
+alias ac='$EDITOR ~/.config/awesome/rc.lua'
+alias nc='$EDITOR ~/.config/nvim/init.lua'
+
+alias v="nvim"
+
+# {{{ Use bat and exa when they are installed.
+
+[ -f /usr/bin/batcat ] && alias cat='batcat'
+# [ -f /usr/bin/exa ] && alias ls='exa'
+[ ! -f /usr/bin/exa ] && alias ls='ls --color=auto'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ List
+if programExists exa; then
+	alias la="exa -laghm@ --all --icons --color=always"
+	alias ll="exa -lghm@ --icons"
+	alias l="exa --icons"
+	alias l.="exa -a | egrep '^\.'"
+else
+	alias la='ls -la'
+	alias ll='ls -l'
+	alias l='ls'
+	alias l.="ls -A | egrep '^\.'"
+fi
+
+alias l1='ls -1'
+alias lad='ls -lad .*'
+
+# alias la="ls -AXb --group-directories-first --sort=extension"
+# alias la="lsd -A --group-dirs first --classify"
+alias ldir="ls -d */"
+
+# Alias's for multiple directory listing commands
+# alias la='ls -Alh'                # show hidden files
+# alias ls='ls -aFh --color=always' # add colors and file type extensions
+alias lx='ls -lXBh'      # sort by extension
+alias lk='ls -lSrh'      # sort by size
+alias lc='ls -lcrh'      # sort by change time
+alias lu='ls -lurh'      # sort by access time
+alias lr='ls -lRh'       # recursive ls
+alias lt='ls -ltrh'      # sort by date
+alias lm='ls -alh |more' # pipe through 'more'
+alias lw='ls -xAh'       # wide listing format
+# alias ll='ls -Fls'               # long listing format
+alias labc='ls -lap' #alphabetical sort
+# alias lf="ls -l | egrep -v '^d'" # files only
+alias ldir="ls -l | egrep '^d'" # directories only
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Grep
+
+# Colorize the grep command output for ease of use (good for log files).
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Administrative aliases
+
+# readable output
+alias df='df -h'
+
+# apt unlock
+alias unlock="sudo rm /var/lib/apt/lists/lock"
+
+# free
+alias free="free -mt"
+
+# use all cores
+# alias uac="sh ~/.bin/main/000*"
+
+# continue download
+alias wget="wget -c"
+
+# userlist
+alias userlist="cut -d: -f1 /etc/passwd"
+
+# merge new settings
+# alias merge="xrdb -merge ~/.Xresources"
+
+# Aliases for software managment
+alias update='sudo apt update && sudo apt upgrade -y'
+
+# ps
+alias psa="ps auxf"
+
+# grub update
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+#grub issue 08/2022
+alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
+
+# add new fonts
+alias update-fc='sudo fc-cache -fv'
+
+# switch between bash and zsh
+alias tobash="sudo chsh $USER -s /usr/bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /usr/bin/zsh && echo 'Now log out.'"
+
+#switch between lightdm and sddm
+alias tolightdm="sudo apt install lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
+alias tosddm="sudo apt install sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
+alias toly="sudo apt install ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
+alias togdm="sudo apt install gdm --noconfirm --needed ; sudo systemctl enable gdm.service -f ; echo 'Gdm is active - reboot now'"
+alias tolxdm="sudo apt install lxdm --noconfirm --needed ; sudo systemctl enable lxdm.service -f ; echo 'Lxdm is active - reboot now'"
+
+# quickly kill picom
+alias kpi='killall picom'
+
+# hardware info --short
+alias hw="hwinfo --short"
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Virtual box
+
+# mounting the folder Public for exchange between host and guest on virtualbox
+# alias vbm="sudo mount -t vboxsf -o rw,uid=1000,gid=1000 Public /home/$USER/Public"
+
+# -------------------------------------------------------------------------- }}}
+# # {{{ shopt
+#
+# shopt -s autocd         # change to named directory
+# shopt -s cdspell        # autocorrects cd misspellings
+# shopt -s cmdhist        # save multi-line commands in history as single line
+# shopt -s dotglob        # dot file names are included in path expansion.
+# shopt -s histappend     # do not overwrite history
+# shopt -s expand_aliases # expand aliases
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Youtube
+
+alias yta-aac="yt-dlp --extract-audio --audio-format aac "
+alias yta-best="yt-dlp --extract-audio --audio-format best "
+alias yta-flac="yt-dlp --extract-audio --audio-format flac "
+alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
+alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Packages
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Job control
+
+# get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Important configuration files
+
+alias nconfgrub='sudo $EDITOR /boot/grub/grub.cfg'
+alias ngrub='sudo $EDITOR /etc/default/grub'
+
+# alias nlightdm="sudo nvim /etc/lightdm/lightdm.conf"
+# alias nmirrorlist="sudo nvim /etc/pacman.d/mirrorlist"
+# alias nmkinitcpio="sudo nvim /etc/mkinitcpio.conf"
+# alias noblogout="sudo nvim /etc/oblogout.conf"
+# alias npacman="sudo nvim /etc/pacman.conf"
+# alias nslim="sudo nvim /etc/slim.conf"
+
+# -------------------------------------------------------------------------- }}}
+# {{{ gpg
+
+# verify signature for isos
+alias gpg-check="gpg --keyserver-options auto-key-retrieve --verify"
+
+# receive the key of a developer
+alias gpg-retrieve="gpg --keyserver-options auto-key-retrieve --receive-keys"
+
+# -------------------------------------------------------------------------- }}}
+# {{{ shutdown or reboot or lock screen.
+
+alias ssn="sudo shutdown now"
+alias sdn='sudo shutdown now'
+# alias sr="sudo reboot"
+alias rbn='sudo reboot now'
+alias i3l="i3lock -i $HOME/Downloads/git_ch.png"
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Vim keybindings.
+
+# set -o vi
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Tmux setup.
+
+# if fileExists /usr/bin/tmux; then
+# alias tmux='tmux -2'
+# fi
+
+# -------------------------------------------------------------------------- }}}
+# {{{ General purpose aliases.
+
+# alias cgits='clear && gits'
+# alias encrypt='$BINHOME/encrypt'
+if [[ $(rg --ignore-case '"Ubuntu' /etc/os-release -c 2>/dev/null) -gt 0 ]]; then
+	alias fd='fdfind'
+	alias fde='fdfind --no-ignore --extension'
+else
+	alias fde='fd --no-ignore --extension'
+fi
+alias fgrep='fgrep --color=auto'
+alias ga='git add'
+alias gP='git pull'
+alias gc='git commit -m'
+alias gco.='git checkout -- .'
+# alias ggp='gits git pull'
+alias gl7='git logg -7'
+alias glg='git log'
+alias glgg='git logg'
+alias glgi='git logi'
+alias gp='git push'
+alias grep='grep --color=auto'
+alias grh='git reset HEAD'
+alias gs='clear && git status'
+alias gsuo='git push --set-upstream origin'
+alias h='history'
+alias kax='sudo killall Xorg'
+alias l24='find . -newermt "-24 hours" -ls'
+alias me='clear && exec zsh'
+alias mv='mv -v'
+alias rbe='eval "$(rbenv init - n)"'
+alias rgits='repeat gits'
+alias sde='sudoedit'
+alias s='source'
+alias sa='source $SHELLSOURCE/my_aliases'
+alias se='source $SHELLSOURCE/my_exports'
+alias sf='source $SHELLSOURCE/my_functions'
+alias sp='source $SHELLSOURCE/my_paths'
+alias ssh='ssh -A'
+alias ta='tmux attach'
+alias wlv='cat ~/.lunarvim_in_use_okay_to_delete'
+alias wnv='cat ~/.neovim_in_use_okay_to_delete'
+alias xz='$EDITOR -c "let g:tty='\''$(tty)'\''"'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Aliases to folders I visit frequently.
+
+alias .a='cd $DOT_SHELL'
+alias .b='cd $BIN_HOME'
+alias .c='cd $CFGHOME'
+alias .d='cd $DOT_INST'
+alias .g='cd $GITHOME'
+alias Dc='cd $HOME/Documents'
+alias Dd='cd $HOME/Downloads'
+# alias gd='cd $GITHOME'
+# alias sd='cd $GITHOME/ssh'
+# alias td='cd $GITHOME/tmux'
+# alias vd='cd $GITHOME/vim'
+# alias wd='cd $GITHOME/wiki'
+
+alias cal='cd $CFGHOME/alacritty'
+alias caw='cd $CFGHOME/awesome'
+# alias cki='cd $CFGHOME/kitty'
+# alias cnv='cd $CFGHOME/nvim'
+# alias cpi='cd $CFGHOME/picom'
+alias cro='cd $CFGHOME/rofi'
+alias cra='cd $CFGHOME/ranger'
+# alias csx='cd $CFGHOME/sxhkd'
+# alias cth='cd $CFGHOME/Thunar'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ File I edit frequently.  These aliases mirror keybinds used in Vim.
+
+alias ,et='$EDITOR $SHELLHOME/config/tmux/tmux.conf.local'
+alias ,ev='$EDITOR $DOT_INST/home/vimrc'
+
+alias ,ma='$EDITOR $SHELLSOURCE/my_aliases'
+alias ,mb='$EDITOR $SHELLSOURCE/bashrc'
+alias ,mc='$EDITOR $SHELLSOURCE/my_completions'
+alias ,me='$EDITOR $SHELLSOURCE/my_exports_and_paths'
+alias ,mf='$EDITOR $SHELLSOURCE/my_functions'
+alias ,mzp='$EDITOR $SHELLSOURCE/my_zsh_prompt'
+alias ,mbp='$EDITOR $SHELLSOURCE/my_bash_prompt'
+
+alias ,mz='$EDITOR $DOT_SHELL/home/zshrc'
+
+# alias ,xb='$EDITOR $BASHHOME/bspwmrc'
+# alias ,xs='$EDITOR $BASHHOME/sxhkdrc'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ tmux sessions I frequently use.
+
+alias kbash='tmux kill-session -t bash'
+alias kkjv='tmux kill-session -t kjv'
+alias knvim='tmux kill-session -t nvim'
+alias ksoup='tmux kill-session -t soup'
+alias kssh='tmux kill-session -t ssh'
+alias kd='tmux kill-session -t d'
+alias kh='tmux kill-session -t h'
+alias kt='tmux kill-session -t t'
+alias kvim='tmux kill-session -t vim'
+alias kwiki='tmux kill-session -t wiki'
+alias kyt='tmux kill-session -t youtube'
+
+# -------------------------------------------------------------------------- }}}
+
+# Aliases
+alias 7zc="7z a -mx=9"
+alias acp="advcp -gv"
+alias amv="advmv -gv"
+alias apti="sudo apt install"
+alias apts="apt search"
+alias aptr="sudo apt remove"
+alias aptq="apt show"
+alias aptu="sudo apt update && sudo apt upgrade"
+alias aran="autorandr -l"
+alias asc="asciinema"
+alias ccp="clipcopy"
+alias cdx='cd $(xplr)'
+alias cless='colorize_less -N'
+alias cols='spectrum_ls'
+alias cp="cp -irv"
+alias cpa="clippaste"
+alias diff="diff --color=auto"
+alias e='nvim $(files)'
+alias emc="emacsclient -c -a 'emacs'"
+alias emt='emacs --no-window-system'
+alias exag="exa -ahlT -L=1  -s=extension --git --group-directories-first"
+alias exdo='exercism download --exercise=hello-world --track=ruby'
+alias exsu='exercism submit'
+alias fd="fd -H"
+alias fdir="find . -type d -name"
+alias ffil="find . -type f -name"
+alias files="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+
+alias g="git"
+alias ga="git add"
+alias gc="git commit -m"
+alias gl="git pull --rebase --autostash"
+alias gp="git push"
+alias gss="git status -s"
+alias gbrr="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias gcm='git checkout $(git_main_branch)'
+alias gcma="git commit --amend -m"
+alias gcman="git commit --amend --no-edit"
+alias gcmn="git add . && git commit --amend --no-edit"
+alias gdh="git diff HEAD"
+alias gg="lazygit"
+alias ghpc="gh pr create"
+alias ghrc="gh repo clone"
+alias ghrd="gh repo edit -d"
+alias ghrh="gh repo edit -h"
+alias ghrr="gh repo rename"
+alias ghrs="gh release create"
+alias ghrt="gh repo edit --add-topic "
+alias ghrv="gh repo edit --visibility "
+alias gmv="git mv"
+alias gmx="git merge -X ours"
+alias gtop='cd "$(git rev-parse --show-toplevel)"'
+alias grep="grep --color=auto"
+alias icat="kitty +kitten icat"
+
+alias java8="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre"
+alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/"
+
+alias jupn="jupyter notebook"
+
+# alias ln="ln -sfnv"
+alias logout="sudo pkill -u \$USER"
+alias lsda="lsd -A --group-dirs first --classify"
+alias lsdo="lsd -A --group-dirs first --classify --recursive --depth=2"
+alias mv="mv -iv"
+alias ncdu="ncdu --color=dark -x"
+alias npi="npm install"
+alias npr="npm run"
+alias open="open_command"
+alias plasmar="kquitapp5 plasmashell && kstart5 plasmashell"
+alias pp="prettyping --nolegend"
+alias q="exit"
+alias rm="rm -irv"
+alias rmf="rm -rf"
+
+alias scr="scrot -cd 3 -F ~/Pictures/Screenshots/snap-%Y-%m-%d.png"
+alias scrw="scrot -u -bcd 3 -F ~/Pictures/Screenshots/snap-%Y-%m-%d.png"
+alias scrs="scrot -s -l width=3,color='#1688f0',mode=edge,opacity=90 -F ~/Pictures/Screenshots/snap-%Y-%m-%d.png"
+
+# alias serv="npx live-server --port=1234 ."
+# alias shad="ssh-add ~/.ssh/id_rsa"
+# alias shag='eval "$(ssh-agent -s)"'
+# alias sto="stackoverflow"
+#
+alias sysd="sudo systemctl disable"
+alias syse="sudo systemctl enable"
+alias sysr="sudo systemctl restart"
+alias syss="systemctl status"
+alias systa="sudo systemctl start"
+alias systo="sudo systemctl stop"
+
+# alias tmux="tmux -u"
+alias tmuxm="tmux new-session \; split-window -h \; split-window -v \; attach"
+alias todo='nvim +"Telekasten goto_today"'
+
+if [ -f "/usr/bin/grc" ]; then
+	alias df="grc df"
+	alias gcc="grc gcc"
+	alias iwconfig="grc iwconfig"
+	alias last="grc last"
+	alias make="grc make"
+	alias mount="grc mount"
+	alias mtr="grc mtr"
+	alias ping="grc ping"
+	alias ps="grc ps"
+	alias traceroute="grc traceroute"
+	alias wdiff="grc wdiff"
+fi
+
+# Causes Issues
+# if [ -f "/usr/bin/kdeconnect-cli" ]; then
+# 	alias send="kdeconnect-cli -d "$(kdeconnect-cli -a --id-only)" --share"
+# fi
+
+#######################################################
+# GENERAL ALIAS'S
+#######################################################
+# To temporarily bypass an alias, we precede the command with a \
+# EG: the ls command is aliased, but to use the normal ls command you would type \ls
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Edit this .bashrc file
+alias ebrc='edit ~/.bashrc'
+
+# Show help for this .bashrc file
+alias hlp='less ~/.bashrc_help'
+
+# alias to show the date
+alias da='date "+%Y-%m-%d %A %T %Z"'
+
+# Alias's to modified commands
+alias cp='cp -i'
+alias mv='mv -i'
+# alias rm='trash -v'
+alias mkdir='mkdir -p'
+alias ps='ps auxf'
+alias ping='ping -c 10'
+alias less='less -R'
+alias apt-get='sudo apt-get'
+alias multitail='multitail --no-repeat -c'
+alias freshclam='sudo freshclam'
+
+# Remove a directory and all files
+alias rmd='/bin/rm  --recursive --force --verbose '
+
+# alias chmod commands
+alias mx='chmod a+x'
+alias 000='chmod -R 000'
+alias 644='chmod -R 644'
+alias 666='chmod -R 666'
+alias 755='chmod -R 755'
+alias 777='chmod -R 777'
+
+# Search command line history
+alias h="history | grep "
+
+# Search running processes
+alias p="ps aux | grep "
+alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+
+# Search files in the current folder
+alias f="find . | grep "
+
+# Count all files (recursively) in the current folder
+alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
+
+# To see if a command is aliased, a file, or a built-in command
+alias checkcommand="type -t"
+
+# Show open ports
+alias openports='netstat -nape --inet'
+
+# Alias's for safe and forced reboots
+alias rebootsafe='sudo shutdown -r now'
+alias rebootforce='sudo shutdown -r -n now'
+
+# Alias's to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r | more"
+alias folders='du -h --max-depth=1'
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+alias tree='tree -CAhF --dirsfirst'
+alias treed='tree -CAFd'
+alias mountedinfo='df -hT'
+
+# Alias's for archives
+alias mktar='tar -cvf'
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias untar='tar -xvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+
+# Show all logs in /var/log
+alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
+
+# SHA1
+alias sha1='openssl sha1'
+
+alias clickpaste='slee p 3; xdotool type "$(xclip -o -selection clipboard)"'
+
+# KITTY - alias to be able to use kitty features when connecting to remote servers(e.g use tmux on remote server)
+
+alias kssh="kitty +kitten ssh"
+
+#######################################################
+# MACHINE SPECIFIC ALIAS'S
+#######################################################
+
+# Alias's for SSH
+# alias SERVERNAME='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
+
+# Alias's to change the directory
+# alias web='cd /var/www/html'
+
+# Alias's to mount ISO files
+# mount -o loop /home/NAMEOFISO.iso /home/ISOMOUNTDIR/
+# umount /home/NAMEOFISO.iso
+# (Both commands done as root only.)
+
+# alias nvim-chad="NVIM_APPNAME=nvim-NvChad nvim"
+# alias nvim-astro="NVIM_APPNAME=nvim-AstroNvim nvim"
+# alias nvim-lazy="NVIM_APPNAME=nvim-LazyVim nvim"
+# alias nvim-kick="NVIM_APPNAME=nvim-Kickstart nvim"
+# alias nvim-lazyman="NVIM_APPNAME=nvim-Lazyman nvim"
+
+#alias v="NVIM_APPNAME=nvim nvim"
+
+alias sr='surfraw -t'
+alias surfraw='surfraw -g'
+
+# Aliases in zshrc
+alias cp='cp -iv --reflink=auto'
+alias rcp='rsync -v --progress'
+alias rmv='rsync -v --progress --remove-source-files'
+# alias mv='mv -iv'
+# alias rm='rm -iv'
+alias rmdir='rmdir -v'
+# alias ln='ln -v'
+alias chmod="chmod -c"
+alias chown="chown -c"
+alias mkdir="mkdir -v"
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+# alias ls='ls --color=auto --human-readable --group-directories-first --classify'
+# alias ll='ls --color=auto --human-readable --group-directories-first --classify -l'
+# alias lla='ls --color=auto --human-readable --group-directories-first --classify -la'
+
+if command -v colordiff >/dev/null 2>&1; then
+	alias diff="colordiff -Nuar"
+else
+	alias diff="diff -Nuar"
+fi
+
+alias root="sudo -E -s"
