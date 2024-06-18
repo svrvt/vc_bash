@@ -1,5 +1,4 @@
 #!/bin/bash
-iatest=$(expr index "$-" i)
 
 # {{{ Interactive check
 
@@ -20,22 +19,6 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # -------------------------------------------------------------------------- }}}
-
-# {{{ Ignore upper and lowercase when TAB completion
-
-# bind "set completion-ignore-case on"
-# Ignore case on auto-completion
-# Note: bind used instead of sticking these in .inputrc
-if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
-
-# Show auto-completion list automatically, without double tab
-if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
-
-# -------------------------------------------------------------------------- }}}
-
-# Disable the bell
-if [[ $iatest -gt 0 ]]; then bind "set bell-style visible"; fi
-
 # {{{ Disable ctrl-s, ctrl-q, and set infinite history.
 
 # stty -ixon
@@ -54,32 +37,18 @@ PROMPT_COMMAND='history -a'
 
 # Define directory exports that my_functions use.
 
-GIT_HOME=$HOME/aggregate
-export GIT_HOME
+BASHDDIR=$HOME/.config/bash
+bash_sourses=("functions" "bash_func" "exports_and_path" "aliases" "completions" "bash_prompt")
 
-DOT_SHELL=$GIT_HOME/re_shell
-SHELLSOURCE=$DOT_SHELL/config/bash
-
-my_sourses=("functions" "bash_func" "exports_and_path" "aliases" "completions" "bash_prompt")
-
-for m in "${my_sourses[@]}"; do
-	[[ -f "$SHELLSOURCE/my_$m" ]] && source "$SHELLSOURCE/my_$m"
+for m in "${bash_sourses[@]}"; do
+	[[ -f "$BASHDDIR/my_$m" ]] && source "$BASHDDIR/my_$m"
 done
 
 # echo "${HOSTNAME} on ${OSTYPE}"
 
-if [ -f "/usr/share/autojump/autojump.sh" ]; then
-	. /usr/share/autojump/autojump.sh
-elif [ -f "/usr/share/autojump/autojump.bash" ]; then
-	. /usr/share/autojump/autojump.bash
-else
-	echo "can't found the autojump script"
-fi
-
 # Automatically added by the Guix install script.
 if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
+	if [[ $PS1 =~ (.*)"\\$" ]]; then
+		PS1="${BASH_REMATCH[1]} [env]\\\$ "
+	fi
 fi
-
