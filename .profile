@@ -26,15 +26,15 @@ if [ -d "$HOME/.local/bin" ]; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
 
+export CARHO_HOME="$HOME/.local/share/cargo"
+
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.cargo/bin" ]; then
-	PATH="$HOME/.cargo/bin:$PATH"
+if [ -d "$CARGO_HOME/bin" ]; then
+	PATH="$CARGO_HOME/bin:$PATH"
+  # . "$CARGO_HOME/env"
 fi
 
-. "$HOME/.cargo/env"
 # if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
 #   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # fi
-# if command -v zoxide > /dev/null; then
-#   eval "$(zoxide init bash)"
-# fi
+

@@ -1,6 +1,8 @@
 *
 !/.bash_logout
 !/.bashrc
+!/.config
+!/.config/bash
 !/.config/bash/my_aliases
 !/.config/bash/my_bash_func
 !/.config/bash/my_bash_prompt
@@ -9,5 +11,6 @@
 !/.config/bash/my_functions
 !/.config/bash/my_paths
 !/.config/bash/.zshrc
+!/.gitignore.d
 !/.gitignore.d/vc_bash
 !/.profile
