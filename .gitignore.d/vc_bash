@@ -11,6 +11,9 @@
 !/.config/bash/my_functions
 !/.config/bash/my_paths
 !/.config/bash/.zshrc
+!/.config/mr
+!/.config/mr/available.d
+!/.config/mr/available.d/vc_bash
 !/.gitignore.d
 !/.gitignore.d/vc_bash
 !/.profile
