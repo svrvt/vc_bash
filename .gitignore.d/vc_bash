@@ -13,7 +13,8 @@
 !/.config/bash/.zshrc
 !/.config/mr
 !/.config/mr/available.d
-!/.config/mr/available.d/vc_bash
+!/.config/mr/available.d/vc
+!/.config/mr/available.d/vc/vc_bash
 !/.gitignore.d
 !/.gitignore.d/vc_bash
 !/.profile
